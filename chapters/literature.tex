@@ -47,27 +47,23 @@
 حملات جعبه سفید به حملاتی می‌گویند که نیاز به دسترسی مستقیم به وزن‌های مدل دارند. این حمله معمولا از گرادیان‌های وزن‌های مدل برای بهبود ورودی بر حسب خروجی مورد نظر استفاده می‌کنند. از این روش‌های می‌توان به روش گرادیان مختصات حریصانه اشاره کرد.
 
 \شروع{الگوریتم}{گرادیان مختصات حریصانه}
-\ورودی Initial prompt $x_{1:n}$, modifiable subset $\mathcal{I}$, 
-  iterations $T$, loss $\mathcal{L}$, $k$, batch size $B$
+\ورودی دستورالعمل اولیه $x_{1:n}$, زیرمجموعه قابل‌تغییر $\mathcal{I}$, 
+  تکرار $T$, هزینه $\mathcal{L}$, $k$, اندازه دسته $B$
 
-\به‌ازای{$t \gets 1 \text{ to } T$}
+\به‌ازای{$t \gets 1 \text{ تا } T$}
   \به‌ازای{$i \in \mathcal{I}$}
     \دستور $X_i \gets \mathrm{Top\text{-}k}\bigl(-\nabla_{e_{x_i}}\mathcal{L}(x_{1:n})\bigr)$ 
-      \توضیحات{Compute top-$k$ promising token substitutions}
   \پایان‌به‌ازای
 
-  \به‌ازای{$b \gets 1 \text{ to } B$}
+  \به‌ازای{$b \gets 1 \text{ تا } B$}
     \دستور $\tilde{x}^{(b)}_{1:n} \gets x_{1:n}$ 
-      \توضیحات{Initialize element of batch}
-    \دستور Select $i$ uniformly at random from $\mathcal{I}$
+    \دستور انتخاب $i$ به صورت یکنواخت تصادفی از $\mathcal{I}$
     \دستور $\tilde{x}^{(b)}_i \gets \mathrm{Uniform}(X_i)$ 
-      \توضیحات{Select random replacement token}
   \پایان‌به‌ازای
 
   \دستور $b^* \gets \arg \min_{b}\; \mathcal{L}\bigl(\tilde{x}^{(b)}_{1:n}\bigr)$
   \دستور $x_{1:n} \gets \tilde{x}^{(b^*)}_{1:n}$ 
-    \توضیحات{Compute best replacement}
 \پایان‌به‌ازای
 
-\دستور \مهم{Output:} Optimized prompt $x_{1:n}$
+\دستور \مهم{خروجی:} دستورالعمل بهینه‌شده $x_{1:n}$
 \پایان{الگوریتم}
